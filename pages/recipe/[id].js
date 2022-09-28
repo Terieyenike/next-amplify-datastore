@@ -22,6 +22,7 @@ export default function Menu({ recipe }) {
   if (!recipe) {
     return <p>Loading...</p>;
   }
+
   return (
     <Layout>
       <div className='max-w-7xl mx-auto w-11/12 py-10'>
@@ -37,7 +38,7 @@ export default function Menu({ recipe }) {
           height={500}
           className='md:w-full lg:w-2/4'
         />
-        <h2 className='mt-2 mb-4'>{recipe.title}</h2>
+        <h2 className='mt-2 mb-4'>{recipe.title.toUpperCase()}</h2>
         <div>
           <span className='font-bold uppercase'>Description</span>
           <p className='mb-6 max-w-6xl'>{recipe.description}</p>
