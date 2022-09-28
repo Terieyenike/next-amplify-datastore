@@ -19,6 +19,9 @@ export async function getServerSideProps({ params }) {
 }
 
 export default function Menu({ recipe }) {
+  if (!recipe) {
+    return <p>Loading...</p>;
+  }
   return (
     <Layout>
       <div className='max-w-7xl mx-auto w-11/12 py-10'>
