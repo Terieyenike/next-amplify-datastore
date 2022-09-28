@@ -24,8 +24,9 @@ export default function Form() {
       }}>
       <div className='max-w-7xl mx-auto w-11/12 min-h-screen'>
         <div className='py-4'>
-          <form>
-            <button onClick={handleMenu}>Submit</button>
+          <form onSubmit={handleMenu}>
+            <input type='file' accept='image/png, image/jpeg' />
+            <button>Submit</button>
           </form>
         </div>
       </div>
