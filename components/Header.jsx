@@ -1,4 +1,4 @@
-import Menu from '../pages/recipe/[id]';
+// import Menu from '../pages/recipe/[id]';
 import Logo from './Logo';
 import Link from 'next/link';
 
@@ -7,12 +7,13 @@ const Header = () => {
     <header className='border-b border-gray-100'>
       <div className='max-w-7xl mx-auto w-11/12 flex justify-between items-center py-4'>
         <Logo />
-        <Link href='/menu-form'>
-          <a>Menu Form</a>
-        </Link>
       </div>
     </header>
   );
 };
 
 export default Header;
+
+// <Link href='/menu-form'>
+//   <a>Menu Form</a>
+// </Link>
