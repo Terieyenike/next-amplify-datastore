@@ -5,46 +5,45 @@ import { CakeIcon } from '@heroicons/react/solid';
 import { Recipe } from '../src/models';
 
 export default function Form() {
-  const defaultFormFiels = {
+  const defaultFormFields = {
     title: '',
     description: '',
     cookingTime: '',
-    featuredImage: '',
     method: '',
     ingredients: '',
   };
 
-  const [formFields, setFormFields] = useState(defaultFormFiels);
+  const [formFields, setFormFields] = useState(defaultFormFields);
+  const [featuredImage, setFeaturedImage] = useState(null);
 
-  const {
-    title,
-    description,
-    cookingTime,
-    featuredImage,
-    method,
-    ingredients,
-  } = formFields;
+  const { title, description, cookingTime, method, ingredients } = formFields;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
 
     setFormFields({ ...formFields, [name]: value });
-
-    console.log(name, value);
   };
 
   const handleMenu = async (e) => {
     e.preventDefault();
-    await DataStore.save(
-      new Recipe({
-        title: title,
-        description: description,
-        cookingTime: parseInt(cookingTime),
-        featuredImage: '',
-        method: method,
-        ingredients: ingredients,
-      })
-    );
+
+    const newRecipe = new Recipe({
+      title: title,
+      description: description,
+      cookingTime: parseInt(cookingTime),
+      featuredImage: featuredImage,
+      method: method,
+      ingredients: ingredients,
+    });
+
+    await DataStore.save(newRecipe);
+
+    setFormFields(defaultFormFields);
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files;
+    console.log(files);
   };
 
   return (
@@ -56,14 +55,16 @@ export default function Form() {
       }}>
       <div className='flex flex-col justify-center items-center max-w-7xl mx-auto w-11/12 min-h-screen'>
         <div className='py-4'>
-          <CakeIcon className='w-12 h-12 flex-shrink-0 text-red-600' />
-          <h2 className='mt-6 text-3xl font-extrabold text-gray-900'>
-            Share a menu
-          </h2>
+          <div className='mt-10 lg:mt-0'>
+            <CakeIcon className='w-12 h-12 flex-shrink-0 text-red-600' />
+            <h2 className='text-3xl font-extrabold text-gray-900'>
+              Share a menu
+            </h2>
+          </div>
           <div className='bg-white shadow rounded-lg'>
             <form onSubmit={handleMenu}>
               <div>
-                <label className='block text-sm font-medium text-gray-700'>
+                <label className='block text-sm font-medium text-gray-700 mt-3'>
                   Title
                 </label>
                 <div className='mt-1'>
@@ -79,7 +80,7 @@ export default function Form() {
                 </div>
               </div>
               <div>
-                <label className='block text-sm font-medium text-gray-700'>
+                <label className='block text-sm font-medium text-gray-700 mt-3'>
                   Description
                 </label>
                 <div className='mt-1'>
@@ -92,7 +93,7 @@ export default function Form() {
                 </div>
               </div>
               <div>
-                <label className='block text-sm font-medium text-gray-700'>
+                <label className='block text-sm font-medium text-gray-700 mt-3'>
                   Cooking Time
                 </label>
                 <div className='mt-1'>
@@ -108,7 +109,7 @@ export default function Form() {
                 </div>
               </div>
               <div>
-                <label className='block text-sm font-medium text-gray-700'>
+                <label className='block text-sm font-medium text-gray-700 mt-3'>
                   Upload a food menu
                 </label>
                 <div className='mt-1'>
@@ -116,12 +117,14 @@ export default function Form() {
                     type='file'
                     accept='image/png, image/jpeg'
                     name='featuredImage'
+                    // value={featuredImage}
+                    onChange={handleFileChange}
                   />
                 </div>
               </div>
 
               <div>
-                <label className='block text-sm font-medium text-gray-700'>
+                <label className='block text-sm font-medium text-gray-700 mt-3'>
                   Method
                 </label>
                 <div className='mt-1'>
@@ -135,7 +138,7 @@ export default function Form() {
               </div>
 
               <div>
-                <label className='block text-sm font-medium text-gray-700'>
+                <label className='block text-sm font-medium text-gray-700 mt-3'>
                   Ingredients
                 </label>
                 <div className='mt-1'>
@@ -147,10 +150,11 @@ export default function Form() {
                     onChange={handleChange}></textarea>
                 </div>
               </div>
+
               <button
                 className='w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 mt-4'
                 type='submit'>
-                Submit
+                Add menu
               </button>
             </form>
           </div>
